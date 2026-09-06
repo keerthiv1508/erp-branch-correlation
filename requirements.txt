@@ -1,0 +1,12 @@
+# Exact versions used for all reported results (Python 3.9.25).
+# PyTorch is CPU-only; install it from the CPU wheel index:
+#   pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+# PyTorch Geometric must be installed after torch.
+
+numpy==1.26.4
+scipy==1.13.1
+scikit-learn==1.6.1
+matplotlib==3.9.4
+datasets==2.18.0
+torch==2.8.0
+torch-geometric==2.6.1
