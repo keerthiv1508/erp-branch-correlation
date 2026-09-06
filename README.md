@@ -57,13 +57,24 @@ R=~/erp-branch-correlation/src
 
 python3 $R/05_models/lr_per_fold_verify.py             # -> 0.5809
 python3 $R/05_models/mlp_per_fold_verify.py            # -> 0.5916
-python3 $R/05_models/train_lstm_pooled.py              # -> 0.587
+python3 $R/05_models/train_lstm_pooled.py              # -> 0.587 (see note)
 python3 $R/05_models/train_gnn_full_eval_per_fold.py   # -> 0.599  (~3 min/fold)
 
 python3 $R/05_models/lr_holdout_verify.py              # -> 0.694
 python3 $R/05_models/mlp_holdout_and_lr_strict.py      # -> 0.673
 python3 $R/05_models/gnn_holdout_and_strict.py         # -> 0.694, recall 0.917
 python3 $R/05_models/significance_test_updated.py      # Wilcoxon, paired folds
+```
+
+**Note on the LSTM.** `train_lstm_pooled.py` writes only the *pooled*
+out-of-fold accuracy (0.5857) to `lstm_program_split_results.json`. The reported
+figure of 0.587 is the **mean of the five per-fold accuracies**, consistent with
+how LR, MLP and GNN are reported. The per-fold values are printed to the console
+as `fold acc=...` but not saved. From a clean clone they are
+[0.5437, 0.5684, 0.6274, 0.5584, 0.6378], mean 0.5871. To capture them:
+
+```bash
+python3 $R/05_models/train_lstm_pooled.py 2>&1 | grep "fold acc"
 ```
 
 `prep_lstm_data_by_program.py` regenerates `lstm_data_by_program.npz`; the file is
@@ -166,6 +177,43 @@ Clang version gives a slightly different number, with small shifts downstream.
 
 Mapping is **positional** and `num_cases` counts contiguous destination runs
 rather than case arms. Read appendix §4 before reading this code.
+
+---
+
+## How pairs are labelled
+
+Labelling runs in three stages, in three different files. Anyone auditing the
+labelling procedure should read them in this order.
+
+**1. Record outcomes.** `pin/branch_trace.cpp` instruments each compiled binary
+and records, for every conditional branch site reached, the ordered sequence of
+taken/not-taken outcomes across runs.
+
+**2. Measure correlation.** `src/04_features/build_pairs_multirun.py` forms
+within-program branch pairs and computes the **Pearson correlation coefficient**
+between the two branches' outcome sequences, over the runs in which both
+executed (`n_overlapping_runs`). The continuous coefficient is stored as
+`pearson_correlation` in `pairs_multirun.json`. No label is assigned at this
+stage.
+
+**3. Threshold into a binary label.** Applied independently but identically in
+two places:
+
+| File | Line | Rule |
+|---|---|---|
+| `src/04_features/build_training_data.py` | 48 | `label = 1 if abs(r) >= 0.5 else 0` |
+| `src/04_features/build_graph_dataset.py` | 173 | `label = 1 if abs(r) >= 0.5 else 0` |
+
+`CORRELATION_THRESHOLD = 0.5` is set at the top of each file
+(`build_training_data.py:8`, `build_graph_dataset.py:13`), so the tabular and
+graph datasets carry identical labels for the same pair.
+
+Two consequences worth stating. The threshold applies to **`abs(r)`**, so a
+strongly *anti*-correlated pair (r = -0.9) is labelled correlated: the task is
+predicting whether two branches are statistically related, not whether they
+agree. And the threshold is a free parameter -
+`src/07_figures/threshold_sensitivity_sweep.py` re-runs the analysis across a
+range of values.
 
 ---
 
