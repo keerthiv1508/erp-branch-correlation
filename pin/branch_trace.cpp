@@ -24,7 +24,7 @@ VOID Instruction(INS ins, VOID *v) {
 }
 
 VOID ImageLoad(IMG img, VOID *v) {
-    if (!IMG_IsMainExecutable(img)) return; // skip libc, ld.so, libstdc++, etc.
+    if (!IMG_IsMainExecutable(img)) return; // skipping the shared libraries so only the compiled function is traced.
 
     for (SEC sec = IMG_SecHead(img); SEC_Valid(sec); sec = SEC_Next(sec)) {
         for (RTN rtn = SEC_RtnHead(sec); RTN_Valid(rtn); rtn = RTN_Next(rtn)) {
