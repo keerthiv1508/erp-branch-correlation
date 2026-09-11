@@ -66,7 +66,7 @@ def process_row(args):
 
 
 def main():
-    n_samples = None  # start with a measured subset, extrapolate from there
+    n_samples = None  # None processes the full split.
     split_str = 'train_real_simple_io' if n_samples is None else f'train_real_simple_io[:{n_samples}]'
     dataset = load_dataset('jordiae/exebench',
                             split=split_str,
