@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Parallel version of run_pin_batch.py using multiprocessing.Pool.
+Parallel version of run_pin_batch.py using multiprocessing.Pool. 
 Each worker gets its own /tmp working directory to avoid branch_trace.out
-filename collisions between concurrent Pin processes.
+Filename collisions between concurrent Pin processes.
 """
 
 from datasets import load_dataset
@@ -24,8 +24,8 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
 def process_row(args):
+        """Runs in a worker process. Returns 'success', 'fail', or 'skip'."""
     idx, row = args
-    """Runs in a worker process. Returns 'success', 'fail', or 'skip'."""
     if len(row['func_def']) < 100:
         return 'skip'
 
