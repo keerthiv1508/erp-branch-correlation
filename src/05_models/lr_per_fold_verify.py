@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 """
-Same training and fold logic as lr_pooled_confusion.py (already confirmed
-today, pooled accuracy 0.5800 matched Table 1's 0.581). Only addition:
-per-fold accuracy tracked and printed, to directly verify the LR array
-hardcoded in significance_test.py: [0.515, 0.586, 0.624, 0.544, 0.636]
+Same training and fold logic as lr_pooled_confusion.py (already confirmed today, pooled accuracy 0.5800 matched Table 1's 0.581). Only addition:
+per-fold accuracy tracked and printed, to directly verify the LR array hardcoded in significance_test.py: [0.515, 0.586, 0.624, 0.544, 0.636]
 """
 import json, os, random
 import numpy as np

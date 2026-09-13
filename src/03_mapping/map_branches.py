@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 """
-Map binary branch instructions to LLVM IR branch instructions for a single
-compiled function, using debug info as the linking mechanism.
+Map binary branch instructions to LLVM IR branch instructions for a single compiled function, using debug info as the linking mechanism.
 
 Usage:
     python3 map_branches.py <basename>
 
-Expects <basename>.o (compiled with -g -O0) and <basename>.ll (compiled with
--S -emit-llvm -g -O0) to exist in the current directory, both from the same
-source file.
+Expects <basename>.o (compiled with -g -O0) and <basename>.ll (compiled with -S -emit-llvm -g -O0) to exist in the current directory, both from the same source file.
 
 Strategy:
   - The .ll file is treated as the structural anchor: every br/switch

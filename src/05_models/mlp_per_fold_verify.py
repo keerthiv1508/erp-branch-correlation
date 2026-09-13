@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 """
-Same training and fold logic as mlp_pooled_confusion.py (already
-confirmed today, pooled accuracy 0.5910 matched Table 1's 0.592). Only
-addition: per-fold accuracy tracked and printed, to directly verify the
-MLP array hardcoded in significance_test.py:
+Same training and fold logic as mlp_pooled_confusion.py (already confirmed today, pooled accuracy 0.5910 matched Table 1's 0.592). Only
+addition: per-fold accuracy tracked and printed, to directly verify the MLP array hardcoded in significance_test.py:
 [0.543, 0.577, 0.649, 0.561, 0.627]
 """
 import json, os, random

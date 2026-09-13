@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 """
-Export binary-to-IR branch mapping as structured JSON, for later joining
-with Pin trace binary addresses.
+Export binary-to-IR branch mapping as structured JSON, for later joining with Pin trace binary addresses.
 
 Usage:
     python3 export_mapping_json.py <file.o> <file.ll> [output.json]
 
-Reuses the core parsing/grouping/matching logic from map_branches.py
-without modifying it.
+Reuses the core parsing/grouping/matching logic from map_branches.py without modifying it.
 """
 
 import sys

@@ -27,6 +27,6 @@ for name, arr in models.items():
     print(f"  {'SIGNIFICANT at p<0.05' if t_p < 0.05 else 'NOT significant at p<0.05'}")
     print()
 
-print("Note: with only n=5 paired folds, statistical power is inherently very low --")
+print("Note: with only n=5 paired folds, statistical power is inherently very low ->")
 print("a non-significant result here does not mean there is no real difference,")
 print("only that 5 folds cannot reliably detect one this size.")

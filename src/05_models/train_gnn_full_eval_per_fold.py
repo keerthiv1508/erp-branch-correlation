@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 """
-Same as train_gnn_full_eval.py, verbatim, with one addition: per-fold
-accuracy is computed and saved, needed for significance_test.py, which
-currently holds GNN values from an older, superseded script. Training
-logic, model, seeding: all unchanged from train_gnn_full_eval.py.
+Same as train_gnn_full_eval.py, verbatim, with one addition: per-fold accuracy is computed and saved, needed for significance_test.py, which
+currently holds GNN values from an older, superseded script. Training logic, model, seeding: all unchanged from train_gnn_full_eval.py.
 """
 import json
 import os

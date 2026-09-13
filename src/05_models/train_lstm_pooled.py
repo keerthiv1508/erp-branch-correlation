@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 """
-LSTM retrained with the same program-level fold split used by LR, MLP,
-and GNN (make_program_folds, seeded shuffle), replacing GroupKFold so
-all four models are tested on identical held-out programs per fold.
-Also fixes the missing seed and pools predictions for a confusion matrix.
-Model architecture and train_fold logic copied verbatim from
-train_lstm_kfold_by_program.py.
+LSTM retrained with the same program-level fold split used by LR, MLP, and GNN (make_program_folds, seeded shuffle), replacing GroupKFold so
+all four models are tested on identical held-out programs per fold. Also fixes the missing seed and pools predictions for a confusion matrix.
+Model architecture and train_fold logic copied verbatim from train_lstm_kfold_by_program.py.
 """
 import json, os, random, time
 import numpy as np
