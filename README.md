@@ -172,3 +172,7 @@ This repository contains the scripts that produce the reported results.
 Superseded pipeline variants, holdout and diagnostic scripts, and figure
 generation code are excluded; their output is retained in `results/` and
 `figures/`.
+
+## Contact
+
+Keerthivasan Ramasamy — keerthiv25uk@gmail.com
